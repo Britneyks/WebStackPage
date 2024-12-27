@@ -2,6 +2,7 @@
 <html lang="zh">
 
 <head>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
     <!-- <script async src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" > -->
     <!-- </script> -->
     <script>
@@ -33,12 +34,212 @@
     <link rel="stylesheet" href="../assets/css/xenon-components.css">
     <link rel="stylesheet" href="../assets/css/xenon-skins.css">
     <link rel="stylesheet" href="../assets/css/nav.css">
-    <script src="../assets/js/jquery-3.6.1.min.js"></script>
     <meta property="og:type" content="article">
     <meta name="twitter:card" content="summary_large_image">
+    <!-- 在 head 标签中添加样式 -->
+    <style>
+        #search-container {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+            background: white;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: none;
+            width: 80%;
+            max-width: 500px;
+            min-width: 320px;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            box-shadow: none;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #search-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        #search-results {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 15px;
+            padding-right: 5px;
+        }
+
+        .search-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+        }
+
+        .search-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        /* 添加搜索按钮悬停效果 */
+        .search-trigger:hover {
+            opacity: 0.7;
+        }
+
+        /* 确保搜索容器在最上层 */
+        #search-container {
+            z-index: 99999;
+        }
+
+        /* 添加搜索结果项的动画效果 */
+        .search-item {
+            transition: background-color 0.2s ease;
+        }
+
+        /* 美化搜索输入框 */
+        #search-input {
+            transition: border-color 0.2s ease;
+        }
+
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99998;
+            display: none;
+        }
+
+        /* 右下角浮动搜索按钮样式 */
+        #floating-search-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        #floating-search-btn i {
+            color: white;
+            font-size: 20px;
+        }
+
+        #floating-search-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.1);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #floating-search-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 移动设备适配 */
+        @media (max-width: 768px) {
+            #floating-search-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* 禁用搜索按钮的文本装饰 */
+        .search-trigger,
+        .search-trigger:hover,
+        .search-trigger:focus,
+        .search-trigger:active {
+            text-decoration: none !important;
+            outline: none !important;
+        }
+
+        .search-trigger i {
+            pointer-events: none;
+        }
+
+        /* 自定义滚动条样式 */
+        #search-results::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #search-results::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        #search-results::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        #search-results::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+
+        /* 搜索框动画 */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* 搜索结果项样式 */
+        .search-item div:first-child {
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .search-item div:last-child {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* 美化搜索框占位符文本 */
+        #search-input::placeholder {
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body class="page-body">
+    <div class="search-overlay"></div>
+    <div id="floating-search-btn" onclick="toggleSearch(event);">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="输入关键词搜索..." autocomplete="off">
+        <div id="search-results"></div>
+    </div>
     <!-- skin-white -->
     <div class="page-container">
         <div class="sidebar-menu toggle-others fixed">
@@ -686,7 +887,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>emoji表情大全</strong>
                                 </a>
-                                <p class="overflowClip_2">拥有常用的emoji表情，访问速度快。</p>
+                                <p class="overflowClip_2">拥有用的emoji表情，访问速度快。</p>
                             </div>
                         </div>
                     </div>
@@ -817,7 +1018,7 @@
                                     <strong>UPUPOO</strong>
                                 </a>
                                 <p class="overflowClip_2">
-                                    啊噗啊噗,穿越桌面世界为你而动.拥有海量4K高清动漫游戏动态壁纸资源,电脑动态桌面和手机壁纸下载双重视觉享受.更有独特创新的蜂巢收纳格组件一键美化整理您的桌面,桌面图标井然有序.壁纸,动漫壁纸,动态壁纸软件,动态壁纸桌面,电脑动态壁纸,壁纸软件,动态壁纸,wallpaper可视化音乐频谱功能让您的音乐世界更加灵动,更有多种win10桌面美化组件.
+                                    啊噗啊噗,穿越桌面世界为你而动.拥有海量4K高清动漫游戏动态壁纸资源,脑动桌面和手机壁纸下载双重视觉享受.更有独特创新的蜂巢收纳格组件一键美化整理您的桌面,桌面图标井然有序.壁纸,动漫壁纸,动态壁纸软件,动态壁纸桌面,脑动壁纸,壁纸软件,动态壁纸,wallpaper可视化音乐频谱功能让您的音乐世界更加灵动,更有多种win10桌面美化组件.
                                 </p>
                             </div>
                         </div>
@@ -930,7 +1131,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>悠久的小宝库</strong>
                                 </a>
-                                <p class="overflowClip_2">很多软件资源，且不仅限软件的宝库网站。</p>
+                                <p class="overflowClip_2">很多软件资源，且���仅限软件的宝库网站。</p>
                             </div>
                         </div>
                     </div>
@@ -964,7 +1165,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>白嫖の地</strong>
                                 </a>
-                                <p class="overflowClip_2">丰富的资源库网站</p>
+                                <p class="overflowClip_2">丰富的资��库网��</p>
                             </div>
                         </div>
                     </div>
@@ -1021,7 +1222,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>555影视</strong>
                                 </a>
-                                <p class="overflowClip_2">免费追剧网页，速度快</p>
+                                <p class="overflowClip_2">��费追剧网页，速度快</p>
                             </div>
                         </div>
                     </div>
@@ -1726,6 +1927,117 @@
             hover: "disabled",
             container: "tp-weather-widget"
         })
+    </script>
+    <script>
+        // 定义全局函数
+        function toggleSearch(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log('Toggle search clicked');
+            const searchContainer = $('#search-container');
+            const searchOverlay = $('.search-overlay');
+            searchOverlay.fadeIn(200);
+            searchContainer.fadeIn(200);
+            $('#search-input').focus();
+            return false;
+        }
+
+        $(function () {
+            console.log('Initializing search functionality...');
+
+            // 获取元素
+            const searchContainer = $('#search-container');
+            const searchInput = $('#search-input');
+            const searchResults = $('#search-results');
+
+            // 隐藏搜索框的函数
+            function hideSearch() {
+                $('.search-overlay').fadeOut(200);
+                searchContainer.fadeOut(200);
+            }
+
+            // 点击遮罩层关闭搜索框
+            $('.search-overlay').on('click', function () {
+                hideSearch();
+            });
+
+            // 阻止搜索框内的点击事件冒泡
+            searchContainer.on('click', function (e) {
+                e.stopPropagation();
+            });
+
+            // 点击文档其他地方关闭搜索框
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#search-container, .search-trigger').length) {
+                    hideSearch();
+                }
+            });
+
+            // ESC 键关闭搜索框
+            $(document).on('keyup', function (e) {
+                if (e.key === "Escape") {
+                    hideSearch();
+                }
+            });
+
+            // 处理搜索输入
+            searchInput.on('input', function () {
+                const searchTerm = $(this).val().toLowerCase().trim();
+                console.log('Searching for:', searchTerm);
+
+                if (searchTerm.length < 1) {
+                    searchResults.empty();
+                    return;
+                }
+
+                // 搜索所有卡片
+                const items = [];
+                $('.xe-widget').each(function () {
+                    const card = $(this);
+                    const title = card.find('.xe-user-name strong').text();
+                    const desc = card.find('.overflowClip_2').text();
+
+                    if (title.toLowerCase().includes(searchTerm) ||
+                        desc.toLowerCase().includes(searchTerm)) {
+                        items.push({
+                            element: card,
+                            title: title,
+                            desc: desc
+                        });
+                    }
+                });
+
+                console.log('Found items:', items.length);
+
+                // 显示结果
+                const resultsHtml = items.map(item => `
+                    <div class="search-item" data-offset="${item.element.offset().top}">
+                        <div style="font-weight: bold;">${item.title}</div>
+                        <div style="font-size: 12px; color: #666;">${item.desc}</div>
+                    </div>
+                `).join('');
+
+                searchResults.html(items.length ? resultsHtml : '<div class="search-item">没有找到相关内容</div>');
+
+                // 点击结果项
+                $('.search-item').click(function () {
+                    const offset = $(this).data('offset');
+                    if (offset) {
+                        $('html, body').animate({
+                            scrollTop: offset - 100
+                        }, 500);
+                        hideSearch();
+                    }
+                });
+            });
+
+            // 初始化完成
+            console.log('Search functionality initialized');
+
+            // 测试搜索按钮是否正确绑定
+            console.log('Search button found:', $('.search-trigger').length);
+            console.log('Search button events:', $._data($('.search-trigger')[0], 'events'));
+        });
     </script>
 </body>
 
