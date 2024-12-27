@@ -1,0 +1,274 @@
+#search-container {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    background: white;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: none;
+    width: 80%;
+    max-width: 500px;
+    min-width: 320px;
+    animation: slideDown 0.3s ease-out;
+}
+
+#search-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    box-shadow: none;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#search-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+#search-results {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 15px;
+    padding-right: 5px;
+}
+
+.search-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.search-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+/* 添加搜索按钮悬停效果 */
+.search-trigger:hover {
+    opacity: 0.7;
+}
+
+/* 确保搜索容器在最上层 */
+#search-container {
+    z-index: 99999;
+}
+
+/* 添加搜索结果项的动画效果 */
+.search-item {
+    transition: background-color 0.2s ease;
+}
+
+/* 美化搜索输入框 */
+#search-input {
+    transition: border-color 0.2s ease;
+}
+
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99998;
+    display: none;
+}
+
+/* 右下角浮动搜索按钮样式 */
+#floating-search-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+#floating-search-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+#floating-search-btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+}
+
+#floating-search-btn:active {
+    transform: scale(0.95);
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    #floating-search-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* 禁索按钮的文本装饰 */
+.search-trigger,
+.search-trigger:hover,
+.search-trigger:focus,
+.search-trigger:active {
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+.search-trigger i {
+    pointer-events: none;
+}
+
+/* 自定义滚动条样式 */
+#search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+#search-results::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#search-results::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#search-results::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
+/* 搜索框动画 */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* 搜索结果项样式 */
+.search-item div:first-child {
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.search-item div:last-child {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* 美化搜索框占位符文本 */
+#search-input::placeholder {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* 返回顶部按钮样式 */
+#back-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+#back-to-top i {
+    color: white;
+    font-size: 20px;
+}
+
+#back-to-top:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+}
+
+#back-to-top:active {
+    transform: scale(0.95);
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    #back-to-top {
+        bottom: 80px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* 添加淡入淡出动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#back-to-top.visible {
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+/* 复制提示框样式 */
+.copy-toast {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    background: rgba(52, 152, 219, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.copy-toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+}
