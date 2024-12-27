@@ -151,4 +151,34 @@ $(function () {
             document.body.removeChild(textarea);
         });
     });
+
+    // 更新时间显示
+    function updateDateTime() {
+        const now = new Date();
+
+        // 格式化时间 - 只显示时和分
+        const timeStr = now.toLocaleTimeString('zh-CN', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+
+        // 格式化日期 - 显示月日和星期
+        const dateStr = now.toLocaleDateString('zh-CN', {
+            month: 'numeric',
+            day: 'numeric',
+            weekday: 'long'
+        });
+
+        // 更新显示
+        $('#current-time .time').text(timeStr);
+        $('#current-time .date').text(dateStr);
+    }
+
+    $(document).ready(function () {
+        // 初始化时间显示
+        updateDateTime();
+        // 每秒更新一次
+        setInterval(updateDateTime, 1000);
+    });
 });

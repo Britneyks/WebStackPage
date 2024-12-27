@@ -28,12 +28,12 @@
     border: 1px solid #425AEF;
 }
 
-.box2.box2:hover .xe-comment-entry img{
+.box2.box2:hover .xe-comment-entry img {
     display: none;
 }
 
-.box2.box2:hover .overflowClip_1, 
-.box2.box2:hover .overflowClip_2{
+.box2.box2:hover .overflowClip_1,
+.box2.box2:hover .overflowClip_2 {
     transform: translateX(-45px);
     transition: 0.6s;
     width: 220px;
@@ -44,17 +44,20 @@
     display: block;
     margin-right: 10px;
 }
+
 .xe-comment {
     transform: translateY(-50%);
     position: absolute;
     margin-left: 50px;
     top: 50%;
 }
+
 .xe-comment p {
     margin-bottom: 0px;
     margin-right: 15px;
     font-size: 10px;
 }
+
 .overflowClip_1 {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -62,6 +65,7 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
+
 .overflowClip_2 {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -71,11 +75,112 @@
 }
 
 
-.submit-tag{
+.submit-tag {
     margin-top: 50px;
 
 }
 
 .img-circle {
     padding: 7px 0;
+}
+
+/* 一言显示样式 */
+.language-switcher {
+    height: 50px;
+    /* 设置固定高度 */
+    display: flex;
+    align-items: center;
+    /* 垂直居中 */
+}
+
+.language-switcher a {
+    display: flex;
+    align-items: center;
+    /* 链接内容垂直居中 */
+    height: 100%;
+    padding: 0 15px;
+}
+
+.language-switcher span {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 鱼图标和文字的间距 */
+.language-switcher span:first-child {
+    margin-right: 8px;
+}
+
+/* 确保所有导航项都垂直居中 */
+.user-info-menu>li {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+/* 天气组件居中 */
+.tp-weather {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+/* 时间显示样式 */
+#current-time {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px;
+    height: 50px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    position: relative;
+    margin-top: 6px;
+}
+
+#current-time .time {
+    font-size: 22px;
+    font-weight: 500;
+    color: #2c3e50;
+    letter-spacing: -0.5px;
+    line-height: 50px;
+    padding-bottom: 5px;
+}
+
+#current-time .date {
+    font-size: 14px;
+    color: #7f8c8d;
+    position: relative;
+    padding-left: 12px;
+    line-height: 50px;
+    padding-bottom: 5px;
+}
+
+#current-time .date::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 16px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 添加右侧分隔线 */
+#current-time::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    #current-time {
+        display: none;
+    }
 }
