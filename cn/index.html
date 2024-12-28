@@ -38,7 +38,6 @@
     <meta property="og:type" content="article">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
 </head>
 
 <body class="page-body">
@@ -332,7 +331,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>cloudflare</strong>
                                 </a>
-                                <p class="overflowClip_2">域名解析网站</p>
+                                <p class="overflowClip_2">域���解析网站</p>
                             </div>
                         </div>
                     </div>
@@ -842,7 +841,7 @@
                                     <strong>UPUPOO</strong>
                                 </a>
                                 <p class="overflowClip_2">
-                                    啊噗啊噗,穿越桌面世界为你而动.拥有海量4K高清动漫游戏动态壁纸资源,脑动桌面和手���壁纸下载双重视觉享��.更有���特创新的蜂巢收纳格组件一键美化整理您的桌面,桌面���标井���有序.壁纸,动漫壁纸,动态壁纸软件,动态壁纸桌面,脑动壁纸,壁纸软件,动态壁纸,wallpaper可视化音乐频谱功能让您的音乐世界更加灵动,更有多种win10桌面美化组件.
+                                    啊噗啊噗,穿越桌面世界为你而动.拥有海量4K高清动漫游戏动态壁纸资源,脑动桌面和手���壁纸下载双重视觉享��.更有���特创新的蜂巢收纳格组件一键美化整理您的桌面,桌面���标井���有序.壁纸,动漫壁纸,动态壁纸软件,动态壁纸桌面,脑动壁纸,壁纸软件,动态壁纸,wallpaper可视化音乐频谱功能让您的音乐世界更加灵动,更有多种win10桌面美化����件.
                                 </p>
                             </div>
                         </div>
@@ -1012,7 +1011,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>MyFreeMP3</strong>
                                 </a>
-                                <p class="overflowClip_2">免费听歌，支持搜索，下载MP3，歌词，封面</p>
+                                <p class="overflowClip_2">免费听歌，支持搜索，下载MP3，歌词���封面</p>
                             </div>
                         </div>
                     </div>
@@ -1325,7 +1324,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>snippet-generator</strong>
                                 </a>
-                                <p class="overflowClip_2">vscode自定义代码片段快速生成器</p>
+                                <p class="overflowClip_2">vscode自定义代码片��快速生成器</p>
                             </div>
                         </div>
                     </div>
@@ -1620,7 +1619,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>一言api</strong>
                                 </a>
-                                <p class="overflowClip_2">����何可填图片地址的地方皆可以���写樱花API，适用����网站背景和机器人接口！</p>
+                                <p class="overflowClip_2">����何可填图片地址��地方皆可以���写樱花API，适用����网站背景和机器人接口！</p>
                             </div>
                         </div>
                     </div>
@@ -1768,22 +1767,38 @@
     </script>
     <script src="../assets/js/search.js"></script>
     <script>
+        let isUpdating = false; // 添加一个标志来防止重复刷新
+        let lastUpdateTime = 0; // 添加上次更新时间记录
+        const REFRESH_INTERVAL = 20000; // 设置刷新间隔为20秒
+
         function fetchHitokoto() {
+            const now = Date.now();
+            // 如果距离上次更新不足1秒，则不执行
+            if (now - lastUpdateTime < 1000) return;
+
+            const hitokoto = document.getElementById('yiyancon');
+            if (!hitokoto || isUpdating) return;
+
+            isUpdating = true;
+            lastUpdateTime = now;
+
             $.ajax({
                 url: 'https://v1.hitokoto.cn',
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    const hitokoto = document.getElementById('yiyancon');
-                    if (hitokoto) {
-                        // 可以选择显示更多信息，比如来源
+                    hitokoto.classList.add('refreshing');
+
+                    setTimeout(() => {
                         hitokoto.innerText = data.hitokoto;
-                        // 如果想显示来源，可以这样：
-                        // hitokoto.innerText = `${data.hitokoto} —— ${data.from}`;
-                    }
+                    }, 300);
+
+                    setTimeout(() => {
+                        hitokoto.classList.remove('refreshing');
+                        isUpdating = false;
+                    }, 600);
                 },
                 error: function () {
-                    // 备用一言数组，当API失败时使用
                     const localHitokoto = [
                         "生活明朗，万物可爱。",
                         "保持热爱，奔赴山海。",
@@ -1793,99 +1808,44 @@
                         "所有的不期而遇，都是久别重逢。",
                         "无论多么平凡，都要活得漂亮。"
                     ];
-                    const hitokoto = document.getElementById('yiyancon');
-                    if (hitokoto) {
+
+                    hitokoto.classList.add('refreshing');
+                    setTimeout(() => {
                         hitokoto.innerText = localHitokoto[Math.floor(Math.random() * localHitokoto.length)];
-                    }
+                    }, 300);
+                    setTimeout(() => {
+                        hitokoto.classList.remove('refreshing');
+                        isUpdating = false;
+                    }, 600);
                 }
             });
         }
 
         $(document).ready(function () {
+            let loadTimeout;
+
             fetchHitokoto(); // 首次加载
-            // 每30秒刷新一次
-            setInterval(fetchHitokoto, 30000);
-        });
-    </script>
-    <script>
-        // 等待文档加载完成
-        document.addEventListener('DOMContentLoaded', () => {
-            // 确保 L2Dwidget 已加载
-            if (typeof L2Dwidget !== 'undefined') {
-                L2Dwidget.init({
-                    model: {
-                        jsonPath: 'https://unpkg.com/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json',
-                        scale: 0.9
-                    },
-                    display: {
-                        position: 'left',
-                        width: 200,
-                        height: 200,
-                        hOffset: 50,
-                        vOffset: 100,
-                        superSample: 2,  // 提高渲染质量
-                        aa: true  // 抗锯齿
-                    },
-                    mobile: {
-                        show: true,
-                        scale: 0.5
-                    },
-                    react: {
-                        opacityDefault: 0.95,
-                        opacityOnHover: 1,
-                        // 添加更多互动效果
-                        live2d_settings: {
-                            canTakeoverScript: true,
-                            canSwitchModel: true,
-                            canSwitchTextures: true,
-                            canSwitchHitokoto: true,
-                            canTakeoverWebgl: true,
-                            canTakeoverCanvas: true,
-                            canTakeoverDiv: true
+
+            // 每20秒刷新一次
+            setInterval(() => {
+                if (!document.hidden && !isUpdating) {
+                    fetchHitokoto();
+                }
+            }, REFRESH_INTERVAL);
+
+            // 页面可见性改变时的处理
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    // 清除之前的定时器
+                    clearTimeout(loadTimeout);
+                    // 延迟500ms后执行，避免频繁切换导致的重复刷新
+                    loadTimeout = setTimeout(() => {
+                        if (!isUpdating) {
+                            fetchHitokoto();
                         }
-                    },
-                    dialog: {
-                        enable: true,
-                        script: {
-                            'tap body': '汪汪~ 主人摸摸我~',
-                            'tap face': '主人好呀！需要我帮你找什么吗？',
-                            'welcome': '欢迎来到导航站！我是这里的小助手~',
-                            'hover': '主人想找什么网站呢？',
-                            'click': '汪汪！',
-                            'drag': '主人要带我去哪里玩呀？',
-                            'drop': '这里也不错呢！',
-                            'long press': '不要一直按着人家啦...',
-                            'hover face': '主人的鼠标好温暖呀~',
-                            'hover body': '痒痒的哈哈~',
-                            'idle': ['主人~', '好无聊啊~', '陪我玩会吧~'],
-                            'alert': ['主人，小心病毒！', '主人，有危险！']
-                        }
-                    },
-                    // 添加自定义动作
-                    motions: {
-                        'idle': [
-                            { 'file': 'motions/idle.mtn' },
-                            { 'file': 'motions/shake.mtn' },
-                            { 'file': 'motions/tap_body.mtn' }
-                        ],
-                        'sleepy': [
-                            { 'file': 'motions/sleeping.mtn' }
-                        ],
-                        'flick_head': [
-                            { 'file': 'motions/touch.mtn' }
-                        ],
-                        'tap_body': [
-                            { 'file': 'motions/tap_body.mtn' }
-                        ]
-                    },
-                    // 添加自动动作
-                    autoMotions: {
-                        enable: true,
-                        interval: 10000,  // 每10秒随机播放一个动作
-                        motions: ['idle', 'sleepy']
-                    }
-                });
-            }
+                    }, 500);
+                }
+            });
         });
     </script>
 </body>

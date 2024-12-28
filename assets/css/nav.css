@@ -115,21 +115,20 @@
 
 /* 时间显示容器优化 */
 #current-time {
+    width: 240px;
+    height: 60px;
+    padding: 0 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     gap: 25px;
-    height: 60px;
-    padding: 0 30px;
-    margin: 0;
-    position: relative;
+    justify-content: center;
 }
 
 /* 时间显示样式优化 */
 #current-time .time {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
+    min-width: 100px;
+    text-align: center;
 }
 
 #current-time .time .period-info {
@@ -145,7 +144,7 @@
     font-weight: 500;
     line-height: 1;
     color: #2c3e50;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 /* 日期显示样式优化 */
@@ -155,63 +154,89 @@
     gap: 3px;
     padding: 0;
     position: relative;
+    min-width: 85px;
 }
 
 #current-time .date .day-info {
     font-size: 13px;
     color: #666;
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 #current-time .date .week-info {
     font-size: 13px;
     color: #666;
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 /* 一言显示容器优化 */
 .language-switcher {
+    width: 400px;
     height: 60px;
-    padding: 0 30px;
+    padding: 0;
     border-right: 1px solid rgba(0, 0, 0, 0.05);
-    min-width: 280px;
-    max-width: 500px;
     position: relative;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .language-switcher a {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    height: 60px;
-    width: 100%;
-    color: #666;
-    text-decoration: none;
+    justify-content: center;
+    text-align: center;
+    padding: 0 30px;
     position: relative;
-    padding: 0 30px 0 0;
-    margin-top: -4px;
 }
 
 #yiyancon {
-    font-size: 14.5px;
-    line-height: 1.5;
-    white-space: nowrap;
+    width: 100%;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
-    transition: all 0.3s ease;
-    font-weight: 400;
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    letter-spacing: 0.5px;
-    margin: 0;
-    padding: 0;
-    flex: 1;
-    color: #444;
-    display: flex;
-    align-items: center;
-    transform: translateY(-2px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* 一言刷新动画 */
+#yiyancon.refreshing {
+    animation: yiyanRefresh 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes yiyanRefresh {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    70% {
+        opacity: 0.2;
+        transform: translateY(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 复制图标样式优化 */
@@ -238,7 +263,7 @@
 }
 
 .language-switcher:hover #yiyancon {
-    color: #2980b9;
+    color: #3498db;
 }
 
 /* 复制成功提示优化 */
@@ -303,16 +328,26 @@
 /* 移动端适配 */
 @media (max-width: 768px) {
     .language-switcher {
-        min-width: 200px;
-        padding: 0 15px;
+        width: 300px;
+    }
+
+    .language-switcher a {
+        padding: 0 20px;
     }
 
     #yiyancon {
-        font-size: 13px;
+        font-size: 12px;
+    }
+}
+
+/* 在更小的屏幕上进一步调整 */
+@media (max-width: 480px) {
+    .language-switcher {
+        width: 250px;
     }
 
-    .language-switcher a::after {
-        font-size: 13px;
+    .language-switcher a {
+        padding: 0 15px;
     }
 }
 
@@ -398,21 +433,25 @@
 
 /* 天气组件容器样式 */
 .weather-container {
+    width: 200px;
     height: 60px;
-    padding: 0 20px;
+    padding: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* 气组件自的样式 */
+/* 气组自的样式 */
 #tp-weather-widget {
     min-width: auto !important;
     height: 60px !important;
     display: flex !important;
     align-items: center !important;
-    padding: 0 !important;
+    padding: 0 20px !important;
     background: transparent !important;
+    width: 100% !important;
+    justify-content: center !important;
 }
 
 #tp-weather-widget .sw-container {
@@ -473,17 +512,36 @@
     }
 
     #current-time {
+        width: 200px;
         height: 50px;
-        padding: 0 20px;
-        gap: 15px;
+        padding: 0 15px;
+        gap: 20px;
     }
 
     #current-time .time .time-info {
-        font-size: 18px;
+        font-size: 16px;
+        letter-spacing: 0.5px;
     }
 
     #current-time .date .day-info,
     #current-time .date .week-info {
         font-size: 12px;
+    }
+}
+
+/* 在更小的屏幕上进一步调整 */
+@media (max-width: 480px) {
+    #current-time {
+        width: 180px;
+        padding: 0 10px;
+        gap: 10px;
+    }
+
+    #current-time .time {
+        min-width: 80px;
+    }
+
+    #current-time .date {
+        min-width: 65px;
     }
 }
