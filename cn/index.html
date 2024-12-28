@@ -1331,7 +1331,7 @@
                 </div>
             </div>
             </br>
-            <h4 class="text-gray"><i class="linecons-tag" style="margin-right: 7px;" id="公式处理"></i>公式处理</h4>
+            <h4 class="text-gray"><i class="linecons-tag" style="margin-right: 7px;" id="公式处理"></i>公式������</h4>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info"
@@ -1767,36 +1767,50 @@
     </script>
     <script src="../assets/js/search.js"></script>
     <script>
-        let isUpdating = false; // 添加一个标志来防止重复刷新
-        let lastUpdateTime = 0; // 添加上次更新时间记录
+        let isUpdating = false;
         const REFRESH_INTERVAL = 20000; // 设置刷新间隔为20秒
+        let refreshTimer = null; // 用于存储定时器ID
+        let lastRefreshTime = Date.now(); // 记录上次刷新时间
 
-        function fetchHitokoto() {
+        // 检查是否应该刷新
+        function shouldRefresh() {
             const now = Date.now();
-            // 如果距离上次更新不足1秒，则不执行
-            if (now - lastUpdateTime < 1000) return;
+            if (now - lastRefreshTime >= REFRESH_INTERVAL && !isUpdating && !document.hidden) {
+                return true;
+            }
+            return false;
+        }
 
+        // 执行动画和更新内容
+        function updateWithAnimation(text) {
             const hitokoto = document.getElementById('yiyancon');
-            if (!hitokoto || isUpdating) return;
+            if (!hitokoto) return;
 
             isUpdating = true;
-            lastUpdateTime = now;
+            hitokoto.classList.add('refreshing');
+
+            // 在动画中途更新内容
+            setTimeout(() => {
+                hitokoto.innerText = text;
+            }, 300);
+
+            // 动画结束后清理状态
+            setTimeout(() => {
+                hitokoto.classList.remove('refreshing');
+                isUpdating = false;
+                lastRefreshTime = Date.now(); // 更新最后刷新时间
+            }, 600);
+        }
+
+        function fetchHitokoto() {
+            if (!shouldRefresh()) return;
 
             $.ajax({
                 url: 'https://v1.hitokoto.cn',
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    hitokoto.classList.add('refreshing');
-
-                    setTimeout(() => {
-                        hitokoto.innerText = data.hitokoto;
-                    }, 300);
-
-                    setTimeout(() => {
-                        hitokoto.classList.remove('refreshing');
-                        isUpdating = false;
-                    }, 600);
+                    updateWithAnimation(data.hitokoto);
                 },
                 error: function () {
                     const localHitokoto = [
@@ -1809,41 +1823,30 @@
                         "无论多么平凡，都要活得漂亮。"
                     ];
 
-                    hitokoto.classList.add('refreshing');
-                    setTimeout(() => {
-                        hitokoto.innerText = localHitokoto[Math.floor(Math.random() * localHitokoto.length)];
-                    }, 300);
-                    setTimeout(() => {
-                        hitokoto.classList.remove('refreshing');
-                        isUpdating = false;
-                    }, 600);
+                    updateWithAnimation(localHitokoto[Math.floor(Math.random() * localHitokoto.length)]);
                 }
             });
         }
 
         $(document).ready(function () {
-            let loadTimeout;
-
             fetchHitokoto(); // 首次加载
 
-            // 每20秒刷新一次
-            setInterval(() => {
-                if (!document.hidden && !isUpdating) {
+            // 使用 requestAnimationFrame 进行定时检查
+            function checkRefresh() {
+                if (shouldRefresh()) {
                     fetchHitokoto();
                 }
-            }, REFRESH_INTERVAL);
+                requestAnimationFrame(checkRefresh);
+            }
+            requestAnimationFrame(checkRefresh);
 
             // 页面可见性改变时的处理
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden) {
-                    // 清除之前的定时器
-                    clearTimeout(loadTimeout);
-                    // 延迟500ms后执行，避免频繁切换导致的重复刷新
-                    loadTimeout = setTimeout(() => {
-                        if (!isUpdating) {
-                            fetchHitokoto();
-                        }
-                    }, 500);
+                    // 页面变为可见时，如果距离上次刷新超过间隔时间，则刷新
+                    if (Date.now() - lastRefreshTime >= REFRESH_INTERVAL) {
+                        fetchHitokoto();
+                    }
                 }
             });
         });
