@@ -119,60 +119,117 @@ $(function () {
         });
     });
 
-    // 添加一言复制功能
+    // 一言功能
+    function fetchHitokoto() {
+        $.ajax({
+            url: 'https://api.apiopen.top/api/sentences',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response && response.result && response.result.name) {
+                    $('#yiyancon').text(response.result.name)
+                        .hide()
+                        .fadeIn(500);
+                } else {
+                    useLocalHitokoto();
+                }
+            },
+            error: useLocalHitokoto
+        });
+    }
+
+    // 使用本地一言
+    function useLocalHitokoto() {
+        const localHitokoto = [
+            "生活明朗，万物可爱。",
+            "保持热爱，奔赴山海。",
+            "既然选择了远方，便只顾风雨兼程。",
+            "山水一程，三生有幸。",
+            "愿你眼中有光，心中有爱。",
+            "所有的不期而遇，都是久别重逢。",
+            "无论多么平凡，都要活得漂亮。",
+            "愿你成为自己喜欢的样子。",
+            "做你自己，成为独特的人。",
+            "保持热爱，奔赴下一场山海。"
+        ];
+        $('#yiyancon')
+            .text(localHitokoto[Math.floor(Math.random() * localHitokoto.length)])
+            .hide()
+            .fadeIn(500);
+    }
+
     $(document).ready(function () {
-        // 一言点击复制功能
+        fetchHitokoto(); // 首次加载
+        setInterval(fetchHitokoto, 30000); // 每30秒更新一次
+
+        // 点击一言复制功能
         $('#hitokoto-link').on('click', function (e) {
             e.preventDefault();
             const text = $('#yiyancon').text();
 
-            // 创建临时文本区域
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-
-            try {
-                // 尝试复制
-                document.execCommand('copy');
-                // 显示提示
-                const toast = $('#copy-toast');
-                toast.addClass('show');
-
-                // 2秒后隐藏提示
-                setTimeout(() => {
-                    toast.removeClass('show');
-                }, 2000);
-            } catch (err) {
-                console.error('复制失败:', err);
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopiedAnimation(this);
+                });
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showCopiedAnimation(this);
+                } catch (err) {
+                    console.error('复制失败:', err);
+                }
+                document.body.removeChild(textarea);
             }
-
-            // 移除临时文本区域
-            document.body.removeChild(textarea);
         });
     });
+
+    // 显示复制成功动画
+    function showCopiedAnimation(element) {
+        const copiedText = $('<span class="copied-text">已复制</span>');
+        $(element).append(copiedText);
+        setTimeout(() => copiedText.remove(), 1000);
+    }
 
     // 更新时间显示
     function updateDateTime() {
         const now = new Date();
 
-        // 格式化时间 - 只显示时和分
+        // 获取上午/下午
+        const period = now.getHours() < 12 ? '上午' : '下午';
+
+        // 格式化时间 - 显示12小时制时分秒
         const timeStr = now.toLocaleTimeString('zh-CN', {
             hour: '2-digit',
             minute: '2-digit',
-            hour12: false
+            second: '2-digit',
+            hour12: true
+        }).replace('上午', '').replace('下午', '');  // 移除默认的上午下午显示
+
+        // 格式化年月日
+        const dayStr = now.toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
 
-        // 格式化日期 - 显示月日和星期
-        const dateStr = now.toLocaleDateString('zh-CN', {
-            month: 'numeric',
-            day: 'numeric',
+        // 获取星期
+        const weekStr = now.toLocaleDateString('zh-CN', {
             weekday: 'long'
         });
 
         // 更新显示
-        $('#current-time .time').text(timeStr);
-        $('#current-time .date').text(dateStr);
+        $('#current-time .time').html(`
+            <span class="period-info">${period}</span>
+            <span class="time-info">${timeStr}</span>
+        `);
+        $('#current-time .date').html(`
+            <span class="day-info">${dayStr}</span>
+            <span class="week-info">${weekStr}</span>
+        `);
     }
 
     $(document).ready(function () {

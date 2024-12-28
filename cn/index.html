@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="../assets/css/nav.css">
     <meta property="og:type" content="article">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
 </head>
 
 <body class="page-body">
@@ -184,30 +186,35 @@
                         </a>
                     </div> -->
                 </ul>
+
+                <!-- 添加小猫容器 -->
+                <!-- <div id="live2d-widget">
+                    <canvas id="live2d" width="200" height="200"></canvas>
+                </div> -->
             </div>
         </div>
         <div class="main-content">
             <nav class="navbar user-info-navbar" role="navigation">
                 <ul class="user-info-menu left-links list-inline list-unstyled">
-                    <!-- 时间显示 -->
+                    <!-- 时间显�� -->
                     <li class="hidden-xs">
                         <div id="current-time">
-                            <span class="time"></span>
-                            <span class="date"></span>
+                            <div class="time"></div>
+                            <div class="date"></div>
+                        </div>
+                    </li>
+
+                    <!-- 天气组件 -->
+                    <li class="hidden-xs">
+                        <div class="weather-container">
+                            <div id="tp-weather-widget"></div>
                         </div>
                     </li>
 
                     <!-- 一言显示 -->
-                    <li class="dropdown hover-line language-switcher" id="shuxin">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="hitokoto-link">
-                            <span>🐟 </span><span class="hitokoto" id="yiyancon"></span>
-                        </a>
-                    </li>
-
-                    <!-- 天气组件 -->
-                    <li class="tp-weather">
-                        <a href="https://weather.seniverse.com/" target="_blank">
-                            <div id="tp-weather-widget"></div>
+                    <li class="language-switcher">
+                        <a href="javascript:;" id="hitokoto-link">
+                            <span id="yiyancon">生活明朗，万物可爱。</span>
                         </a>
                     </li>
                 </ul>
@@ -284,7 +291,7 @@
                                 data-original-title="Hello I am a Tooltip"></span>
                             <div class="xe-comment">
                                 <a href="#" class="xe-user-name overflowClip_1">
-                                    <strong>西南交大研究生网</strong>
+                                    <strong>西南交大研究生����</strong>
                                 </a>
                                 <p class="overflowClip_2"></p>
                             </div>
@@ -539,7 +546,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>chatgpt官网</strong>
                                 </a>
-                                <p class="overflowClip_2">chatgpt官网，需要梯子</p>
+                                <p class="overflowClip_2">chatgpt官���，需��梯子</p>
                             </div>
                         </div>
                     </div>
@@ -721,7 +728,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>iconpark</strong>
                                 </a>
-                                <p class="overflowClip_2">致力于构建高质量、统一化��可定义的图标资源，让大多数人都能够选择适合自己的风格图标</p>
+                                <p class="overflowClip_2">致力于构建高质量、统一化��可定义的图标资源，让大多数人都能够选择适合自己的风格图���</p>
                             </div>
                         </div>
                     </div>
@@ -741,7 +748,7 @@
                             </a>
                             <div class="xe-comment">
                                 <a href="#" class="xe-user-name overflowClip_1">
-                                    <strong>山己几子木</strong>
+                                    <strong>山己几子��</strong>
                                 </a>
                                 <p class="overflowClip_2">Windows系统下载，支持迅雷、百度、阿里下载</p>
                             </div>
@@ -835,7 +842,7 @@
                                     <strong>UPUPOO</strong>
                                 </a>
                                 <p class="overflowClip_2">
-                                    啊噗啊噗,穿越桌面世界为你而动.拥有海量4K高清动漫游戏动态壁纸资源,脑动桌面和手机壁纸下载双重视觉享受.更有独特创新的蜂巢收纳格组件一键美化整理您的桌面,桌面图标井然有序.壁纸,动漫壁纸,动态壁纸软件,动态壁纸桌面,脑动壁纸,壁纸软件,动态壁纸,wallpaper可视化音乐频谱功能让您的音乐世界更加灵动,更有多种win10桌面美化组件.
+                                    啊噗啊噗,穿越桌面世界为你而动.拥有海量4K高清动漫游戏动态壁纸资源,脑动桌面和手���壁纸下载双重视觉享��.更有���特创新的蜂巢收纳格组件一键美化整理您的桌面,桌面���标井���有序.壁纸,动漫壁纸,动态壁纸软件,动态壁纸桌面,脑动壁纸,壁纸软件,动态壁纸,wallpaper可视化音乐频谱功能让您的音乐世界更加灵动,更有多种win10桌面美化组件.
                                 </p>
                             </div>
                         </div>
@@ -1022,7 +1029,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>歌曲宝</strong>
                                 </a>
-                                <p class="overflowClip_2">免费听歌，支持搜索，下载MP3，歌词，封面</p>
+                                <p class="overflowClip_2">免费听歌���支持搜索，下载MP3，歌词，封面</p>
                             </div>
                         </div>
                     </div>
@@ -1488,7 +1495,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>colacloudnet</strong>
                                 </a>
-                                <p class="overflowClip_2">价格中规中矩，没用过，别人有推荐过。</p>
+                                <p class="overflowClip_2">价格中规中矩，没用过，别人���推荐过。</p>
                             </div>
                         </div>
                     </div>
@@ -1496,7 +1503,7 @@
             </div>
             </br>
             <!-- API网站 -->
-            <h4 class="text-gray"><i class="linecons-tag" style="margin-right: 7px;" id="API网站"></i>API网站</h4>
+            <h4 class="text-gray"><i class="linecons-tag" style="margin-right: 7px;" id="API网站"></i>API网��</h4>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info"
@@ -1613,7 +1620,7 @@
                                 <a href="#" class="xe-user-name overflowClip_1">
                                     <strong>一言api</strong>
                                 </a>
-                                <p class="overflowClip_2">任何可填图片地址的地方皆可以填写樱花API，适用于网站背景和机器人接口！</p>
+                                <p class="overflowClip_2">����何可填图片地址的地方皆可以���写樱花API，适用����网站背景和机器人接口！</p>
                             </div>
                         </div>
                     </div>
@@ -1736,9 +1743,11 @@
         });
     </script>
     <script src="../assets/js/foot.js"></script>
-    <div id="tp-weather-widget"></div>
+    <!-- <div id="tp-weather-widget"></div> -->
+    <!-- 心知天气组件 -->
     <script>
-        (function (a, h, g, f, e, d, c, b) { b = function () { d = h.createElement(g); c = h.getElementsByTagName(g)[0]; d.src = e; d.charset = "utf-8"; d.async = 1; c.parentNode.insertBefore(d, c) }; a["SeniverseWeatherWidgetObject"] = f; a[f] || (a[f] = function () { (a[f].q = a[f].q || []).push(arguments) }); a[f].l = +new Date(); if (a.attachEvent) { a.attachEvent("onload", b) } else { a.addEventListener("load", b, false) } }(window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10)));
+        (function (a, h, g, f, e, d, c, b) { b = function () { d = h.createElement(g); c = h.getElementsByTagName(g)[0]; d.src = e; d.charset = "utf-8"; d.async = 1; c.parentNode.insertBefore(d, c) }; a["SeniverseWeatherWidgetObject"] = f; a[f] || (a[f] = function () { (a[f].q = a[f].q || []).push(arguments) }); a[f].l = +new Date(); if (a.attachEvent) { a.attachEvent("onload", b) } else { a.addEventListener("load", b, false) } })
+            (window, document, "script", "SeniverseWeatherWidget", "//cdn.sencdn.com/widget2/static/js/bundle.js?t=" + parseInt((new Date().getTime() / 100000000).toString(), 10));
         window.SeniverseWeatherWidget('show', {
             flavor: "slim",
             location: "WX4FBXXFKE4F",
@@ -1748,8 +1757,14 @@
             theme: "auto",
             token: "e50c2d5c-a5c8-43f4-979c-2bb37fbd2f68",
             hover: "disabled",
-            container: "tp-weather-widget"
-        })
+            container: "tp-weather-widget",
+            showOption: {
+                background: "transparent",
+                fontSize: "14px",
+                padding: "0",
+                textColor: "#666666"
+            }
+        });
     </script>
     <script src="../assets/js/search.js"></script>
     <script>
@@ -1790,6 +1805,87 @@
             fetchHitokoto(); // 首次加载
             // 每30秒刷新一次
             setInterval(fetchHitokoto, 30000);
+        });
+    </script>
+    <script>
+        // 等待文档加载完成
+        document.addEventListener('DOMContentLoaded', () => {
+            // 确保 L2Dwidget 已加载
+            if (typeof L2Dwidget !== 'undefined') {
+                L2Dwidget.init({
+                    model: {
+                        jsonPath: 'https://unpkg.com/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json',
+                        scale: 0.9
+                    },
+                    display: {
+                        position: 'left',
+                        width: 200,
+                        height: 200,
+                        hOffset: 50,
+                        vOffset: 100,
+                        superSample: 2,  // 提高渲染质量
+                        aa: true  // 抗锯齿
+                    },
+                    mobile: {
+                        show: true,
+                        scale: 0.5
+                    },
+                    react: {
+                        opacityDefault: 0.95,
+                        opacityOnHover: 1,
+                        // 添加更多互动效果
+                        live2d_settings: {
+                            canTakeoverScript: true,
+                            canSwitchModel: true,
+                            canSwitchTextures: true,
+                            canSwitchHitokoto: true,
+                            canTakeoverWebgl: true,
+                            canTakeoverCanvas: true,
+                            canTakeoverDiv: true
+                        }
+                    },
+                    dialog: {
+                        enable: true,
+                        script: {
+                            'tap body': '汪汪~ 主人摸摸我~',
+                            'tap face': '主人好呀！需要我帮你找什么吗？',
+                            'welcome': '欢迎来到导航站！我是这里的小助手~',
+                            'hover': '主人想找什么网站呢？',
+                            'click': '汪汪！',
+                            'drag': '主人要带我去哪里玩呀？',
+                            'drop': '这里也不错呢！',
+                            'long press': '不要一直按着人家啦...',
+                            'hover face': '主人的鼠标好温暖呀~',
+                            'hover body': '痒痒的哈哈~',
+                            'idle': ['主人~', '好无聊啊~', '陪我玩会吧~'],
+                            'alert': ['主人，小心病毒！', '主人，有危险！']
+                        }
+                    },
+                    // 添加自定义动作
+                    motions: {
+                        'idle': [
+                            { 'file': 'motions/idle.mtn' },
+                            { 'file': 'motions/shake.mtn' },
+                            { 'file': 'motions/tap_body.mtn' }
+                        ],
+                        'sleepy': [
+                            { 'file': 'motions/sleeping.mtn' }
+                        ],
+                        'flick_head': [
+                            { 'file': 'motions/touch.mtn' }
+                        ],
+                        'tap_body': [
+                            { 'file': 'motions/tap_body.mtn' }
+                        ]
+                    },
+                    // 添加自动动作
+                    autoMotions: {
+                        enable: true,
+                        interval: 10000,  // 每10秒随机播放一个动作
+                        motions: ['idle', 'sleepy']
+                    }
+                });
+            }
         });
     </script>
 </body>

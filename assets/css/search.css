@@ -28,8 +28,8 @@
 }
 
 #search-input:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    border-color: #6c5ce7;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
 }
 
 #search-results {
@@ -43,13 +43,15 @@
     padding: 12px 15px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     border-radius: 4px;
 }
 
 .search-item:hover {
     background-color: #f8f9fa;
     transform: translateX(5px);
+    border-left: 3px solid #6c5ce7;
+    padding-left: 17px;
 }
 
 /* 添加搜索按钮悬停效果 */
@@ -78,7 +80,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
     z-index: 99998;
     display: none;
 }
@@ -90,13 +93,13 @@
     right: 30px;
     width: 50px;
     height: 50px;
-    background-color: #3498db;
+    background-color: #6c5ce7;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(108, 92, 231, 0.3);
     transition: all 0.3s ease;
     z-index: 1000;
 }
@@ -107,9 +110,8 @@
 }
 
 #floating-search-btn:hover {
-    background-color: #2980b9;
-    transform: scale(1.1);
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    background-color: #5b4cc4;
+    transform: translateY(-3px);
 }
 
 #floating-search-btn:active {
@@ -126,7 +128,7 @@
     }
 }
 
-/* 禁索按钮的文本装饰 */
+/* 禁按钮的文本装饰 */
 .search-trigger,
 .search-trigger:hover,
 .search-trigger:focus,
@@ -141,21 +143,22 @@
 
 /* 自定义滚动条样式 */
 #search-results::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 #search-results::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
+    background: #f5f5f5;
+    border-radius: 3px;
 }
 
 #search-results::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
+    background: #6c5ce7;
+    border-radius: 3px;
+    opacity: 0.7;
 }
 
 #search-results::-webkit-scrollbar-thumb:hover {
-    background: #bbb;
+    background: #5b4cc4;
 }
 
 /* 搜索框动画 */
@@ -192,17 +195,17 @@
 /* 返回顶部按钮样式 */
 #back-to-top {
     position: fixed;
-    bottom: 90px;
+    bottom: 100px;
     right: 30px;
     width: 50px;
     height: 50px;
-    background-color: #3498db;
+    background-color: #6c5ce7;
     border-radius: 50%;
     display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(108, 92, 231, 0.3);
     transition: all 0.3s ease;
     z-index: 1000;
 }
@@ -213,9 +216,8 @@
 }
 
 #back-to-top:hover {
-    background-color: #2980b9;
-    transform: scale(1.1);
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    background-color: #5b4cc4;
+    transform: translateY(-3px);
 }
 
 #back-to-top:active {
@@ -252,10 +254,10 @@
 /* 复制提示框样式 */
 .copy-toast {
     position: fixed;
-    bottom: 50px;
+    bottom: 60px;
     left: 50%;
     transform: translate(-50%, 100%);
-    background: rgba(52, 152, 219, 0.9);
+    background: rgba(108, 92, 231, 0.9);
     color: white;
     padding: 12px 24px;
     border-radius: 4px;
@@ -264,7 +266,7 @@
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 10000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
 }
 
 .copy-toast.show {

@@ -84,103 +84,406 @@
     padding: 7px 0;
 }
 
-/* 一言显示样式 */
-.language-switcher {
-    height: 50px;
-    /* 设置固定高度 */
+/* 顶栏整体样式 */
+.navbar.user-info-navbar {
+    height: 60px;
+    background: linear-gradient(to right, #ffffff, #f8f9fa);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    padding: 0;
+}
+
+/* 左侧菜单项容器 */
+.user-info-menu.left-links {
     display: flex;
     align-items: center;
-    /* 垂直居中 */
+    height: 100%;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.user-info-menu.left-links>li {
+    height: 60px;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.user-info-menu.left-links>li:hover {
+    background: rgba(52, 152, 219, 0.04);
+}
+
+/* 时间显示容器优化 */
+#current-time {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    height: 60px;
+    padding: 0 30px;
+    margin: 0;
+    position: relative;
+}
+
+/* 时间显示样式优化 */
+#current-time .time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+#current-time .time .period-info {
+    font-size: 12px;
+    font-weight: 500;
+    color: #3498db;
+    line-height: 1;
+    letter-spacing: 0.5px;
+}
+
+#current-time .time .time-info {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+}
+
+/* 日期显示样式优化 */
+#current-time .date {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0;
+    position: relative;
+}
+
+#current-time .date .day-info {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.2;
+}
+
+#current-time .date .week-info {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.2;
+}
+
+/* 一言显示容器优化 */
+.language-switcher {
+    height: 60px;
+    padding: 0 30px;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    min-width: 280px;
+    max-width: 500px;
+    position: relative;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
 .language-switcher a {
     display: flex;
     align-items: center;
-    /* 链接内容垂直居中 */
-    height: 100%;
-    padding: 0 15px;
-}
-
-.language-switcher span {
-    font-size: 14px;
+    justify-content: flex-start;
+    height: 60px;
+    width: 100%;
     color: #666;
-}
-
-/* 鱼图标和文字的间距 */
-.language-switcher span:first-child {
-    margin-right: 8px;
-}
-
-/* 确保所有导航项都垂直居中 */
-.user-info-menu>li {
-    height: 50px;
-    display: flex;
-    align-items: center;
-}
-
-/* 天气组件居中 */
-.tp-weather {
-    display: flex;
-    align-items: center;
-    height: 50px;
-}
-
-/* 时间显示样式 */
-#current-time {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0 20px;
-    height: 50px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    text-decoration: none;
     position: relative;
-    margin-top: 6px;
+    padding: 0 30px 0 0;
+    margin-top: -4px;
 }
 
-#current-time .time {
-    font-size: 22px;
+#yiyancon {
+    font-size: 14.5px;
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    letter-spacing: 0.5px;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    color: #444;
+    display: flex;
+    align-items: center;
+    transform: translateY(-2px);
+}
+
+/* 复制图标样式优化 */
+.language-switcher a::after {
+    content: "📝";
+    position: absolute;
+    right: 8px;
+    top: 46%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+/* 悬停效果优化 */
+.language-switcher:hover {
+    background: rgba(52, 152, 219, 0.04);
+}
+
+.language-switcher:hover a::after {
+    opacity: 0.8;
+    right: 8px;
+}
+
+.language-switcher:hover #yiyancon {
+    color: #2980b9;
+}
+
+/* 复制成功提示优化 */
+.copied-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0);
+    background: rgba(52, 152, 219, 0.95);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 13px;
     font-weight: 500;
-    color: #2c3e50;
-    letter-spacing: -0.5px;
-    line-height: 50px;
-    padding-bottom: 5px;
+    pointer-events: none;
+    animation: copiedAnimation 1.2s ease forwards;
+    white-space: nowrap;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
 }
 
-#current-time .date {
-    font-size: 14px;
-    color: #7f8c8d;
-    position: relative;
-    padding-left: 12px;
-    line-height: 50px;
-    padding-bottom: 5px;
+/* 暗色主题适配优化 */
+[data-theme="dark"] .language-switcher a {
+    color: #e8eaed;
 }
 
-#current-time .date::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 16px;
-    background-color: rgba(0, 0, 0, 0.1);
+[data-theme="dark"] #yiyancon {
+    color: #e8eaed;
 }
 
-/* 添加右侧分隔线 */
-#current-time::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 24px;
-    background-color: rgba(0, 0, 0, 0.05);
+[data-theme="dark"] .language-switcher:hover {
+    background: rgba(52, 152, 219, 0.08);
+}
+
+[data-theme="dark"] .language-switcher:hover #yiyancon {
+    color: #5dade2;
+}
+
+/* 复制成功动画 */
+@keyframes copiedAnimation {
+    0% {
+        transform: translate(-50%, 0);
+        opacity: 0;
+    }
+
+    20% {
+        transform: translate(-50%, -15px);
+        opacity: 1;
+    }
+
+    80% {
+        transform: translate(-50%, -15px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -20px);
+        opacity: 0;
+    }
 }
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+    .language-switcher {
+        min-width: 200px;
+        padding: 0 15px;
+    }
+
+    #yiyancon {
+        font-size: 13px;
+    }
+
+    .language-switcher a::after {
+        font-size: 13px;
+    }
+}
+
+/* 天气组件优化 */
+.tp-weather {
+    height: 60px;
+    padding: 0 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tp-weather-widget {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+}
+
+/* 天气图标 */
+.tp-weather-widget .weather-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 天文本 */
+.tp-weather-widget .weather-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 天气温度 */
+.tp-weather-widget .weather-temp {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .tp-weather-widget {
+    color: #aaa;
+}
+
+[data-theme="dark"] .tp-weather-widget .weather-text,
+[data-theme="dark"] .tp-weather-widget .weather-temp {
+    color: #e8eaed;
+}
+
+[data-theme="dark"] .navbar.user-info-navbar {
+    background: linear-gradient(to right, #1a1a1a, #1f1f1f);
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .user-info-menu.left-links>li {
+    border-right-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] #current-time .time .time-info {
+    color: #fff;
+}
+
+/* 应式调整 */
+@media (max-width: 768px) {
+    .navbar.user-info-navbar {
+        height: 50px;
+    }
+
+    .user-info-menu.left-links {
+        padding: 0 10px;
+    }
+
+    #current-time,
+    .language-switcher,
+    .tp-weather {
+        height: 50px;
+        padding: 0 15px;
+    }
+}
+
+/* 天气组件容器样式 */
+.weather-container {
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 气组件自的样式 */
+#tp-weather-widget {
+    min-width: auto !important;
+    height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+#tp-weather-widget .sw-container {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 !important;
+}
+
+#tp-weather-widget .sw-layout-vertical {
+    padding: 0 !important;
+    height: auto !important;
+}
+
+#tp-weather-widget .sw-text {
+    color: #666 !important;
+    font-size: 14px !important;
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] #tp-weather-widget .sw-text {
+    color: #e8eaed !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    #tp-weather-widget {
+        height: 50px !important;
+    }
+
+    #tp-weather-widget .sw-text {
+        font-size: 13px !important;
+    }
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .user-info-menu.left-links>li {
+    border-right-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .user-info-menu.left-links>li:hover {
+    background: rgba(52, 152, 219, 0.08);
+}
+
+[data-theme="dark"] #current-time .time .time-info {
+    color: #e8eaed;
+}
+
+[data-theme="dark"] #current-time .date .day-info,
+[data-theme="dark"] #current-time .date .week-info {
+    color: #aaa;
+}
+
+/* 移动端适配优化 */
+@media (max-width: 768px) {
+    .user-info-menu.left-links>li {
+        height: 50px;
+    }
+
     #current-time {
-        display: none;
+        height: 50px;
+        padding: 0 20px;
+        gap: 15px;
+    }
+
+    #current-time .time .time-info {
+        font-size: 18px;
+    }
+
+    #current-time .date .day-info,
+    #current-time .date .week-info {
+        font-size: 12px;
     }
 }
