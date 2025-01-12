@@ -198,8 +198,22 @@
                     <!-- 时间显示 -->
                     <li class="hidden-xs">
                         <div id="current-time">
-                            <div class="time"></div>
-                            <div class="date"></div>
+                            <div class="time">
+                                <span class="period-info chinese-font"></span>
+                                <span class="time-info number-font"></span>
+                            </div>
+                            <div class="date">
+                                <span class="day-info" style="display: inline-flex; align-items: center; gap: 2px;">
+                                    <span class="number-font year" style="color: #3498db;"></span>
+                                    <span class="chinese-font">年</span>
+                                    <span class="number-font month" style="color: #e74c3c;"></span>
+                                    <span class="chinese-font">月</span>
+                                    <span class="number-font day" style="color: #1abc9c;"></span>
+                                    <span class="chinese-font">日</span>
+                                </span>
+                                <span class="week-info chinese-font" style="margin-left: 6px;">星期<span
+                                        style="color: #2ecc71;">日</span></span>
+                            </div>
                         </div>
                     </li>
 
@@ -213,8 +227,19 @@
                     <!-- 一言显示 -->
                     <li class="language-switcher">
                         <a href="javascript:;" id="hitokoto-link">
-                            <span id="yiyancon">生活明朗，万物可爱。</span>
+                            <span id="yiyancon"
+                                style="font-family: '楷体', 'KaiTi', 'STKaiti', serif; font-weight: bold; font-size: 18px;">生活明朗，万物可爱。</span>
                         </a>
+                    </li>
+                    <!-- 页面统计 -->
+                    <li class="stats-info"
+                        style="display: flex; align-items: center; background: rgba(255,255,255,0.1); padding: 6px 12px;">
+                        <span class="stats-item" style="display: flex; align-items: center;">
+                            <i class="fa fa-link" style="color: #e74c3c; margin-right: 5px; font-size: 14px;"></i>
+                            <span style="color: #999; font-size: 13px;">目前已收录网站数量：</span>
+                            <span id="site-count"
+                                style="color: #666; font-size: 14px; font-weight: 500; margin-left: 3px;">0</span>
+                        </span>
                     </li>
                 </ul>
             </nav>
@@ -1784,91 +1809,6 @@
         });
     </script>
     <script src="../assets/js/search.js"></script>
-    <script>
-        let isUpdating = false;
-        const REFRESH_INTERVAL = 20000; // 设置刷新间隔为20秒
-        let refreshTimer = null; // 用于存储定时器ID
-        let lastRefreshTime = Date.now(); // 记录上次刷新时间
-
-        // 检查是否应该刷新
-        function shouldRefresh() {
-            const now = Date.now();
-            if (now - lastRefreshTime >= REFRESH_INTERVAL && !isUpdating && !document.hidden) {
-                return true;
-            }
-            return false;
-        }
-
-        // 执行动画和更新内容
-        function updateWithAnimation(text) {
-            const hitokoto = document.getElementById('yiyancon');
-            if (!hitokoto) return;
-
-            isUpdating = true;
-            hitokoto.classList.add('refreshing');
-
-            // 在动画中途更新内容
-            setTimeout(() => {
-                hitokoto.innerText = text;
-            }, 300);
-
-            // 动画结束后清理状态
-            setTimeout(() => {
-                hitokoto.classList.remove('refreshing');
-                isUpdating = false;
-                lastRefreshTime = Date.now(); // 更新最后刷新时间
-            }, 600);
-        }
-
-        function fetchHitokoto() {
-            if (!shouldRefresh()) return;
-
-            $.ajax({
-                url: 'https://v1.hitokoto.cn',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    updateWithAnimation(data.hitokoto);
-                },
-                error: function () {
-                    const localHitokoto = [
-                        "生活明朗，万物可爱。",
-                        "保持热爱，奔赴山海。",
-                        "既然选择了远方，便只顾风雨兼程。",
-                        "山水一程，三生有幸。",
-                        "愿你眼中有光，心中有爱。",
-                        "所有的不期而遇，都是久别重逢。",
-                        "无论多么平凡，都要活得漂亮。"
-                    ];
-
-                    updateWithAnimation(localHitokoto[Math.floor(Math.random() * localHitokoto.length)]);
-                }
-            });
-        }
-
-        $(document).ready(function () {
-            fetchHitokoto(); // 首次加载
-
-            // 使用 requestAnimationFrame 进行定时检查
-            function checkRefresh() {
-                if (shouldRefresh()) {
-                    fetchHitokoto();
-                }
-                requestAnimationFrame(checkRefresh);
-            }
-            requestAnimationFrame(checkRefresh);
-
-            // 页面可见性改变时的处理
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden) {
-                    // 页面变为可见时，如果距离上次刷新超过间隔时间，则刷新
-                    if (Date.now() - lastRefreshTime >= REFRESH_INTERVAL) {
-                        fetchHitokoto();
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

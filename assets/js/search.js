@@ -209,33 +209,33 @@ $(function () {
             hour12: true
         }).replace('上午', '').replace('下午', '');  // 移除默认的上午下午显示
 
-        // 格式化年月日
-        const dayStr = now.toLocaleDateString('zh-CN', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-
-        // 获取星期
-        const weekStr = now.toLocaleDateString('zh-CN', {
-            weekday: 'long'
-        });
-
-        // 更新显示
+        // 更新时间显示
         $('#current-time .time').html(`
-            <span class="period-info">${period}</span>
-            <span class="time-info">${timeStr}</span>
+            <span class="period-info chinese-font">${period}</span>
+            <span class="time-info number-font">${timeStr}</span>
         `);
-        $('#current-time .date').html(`
-            <span class="day-info">${dayStr}</span>
-            <span class="week-info">${weekStr}</span>
-        `);
+
+        // 更新日期显示
+        $('.year').text(now.getFullYear());
+        $('.month').text(now.getMonth() + 1);
+        $('.day').text(now.getDate());
+        // 获取星期几
+        const weekDay = now.toLocaleDateString('zh-CN', { weekday: 'long' });
+        $('.week-info').html(`星期<span style="color: #2ecc71;">${weekDay.slice(-1)}</span>`);
     }
 
-    $(document).ready(function () {
-        // 初始化时间显示
-        updateDateTime();
-        // 每秒更新一次
-        setInterval(updateDateTime, 1000);
-    });
+    // 初始化时间显示
+    updateDateTime();
+    // 每秒更新一次
+    setInterval(updateDateTime, 1000);
+
+    // 更新网站统计
+    function updateStats() {
+        // 计算网站数量
+        const siteCount = $('.xe-widget').length;
+        $('#site-count').text(siteCount);
+    }
+
+    // 初始化统计
+    updateStats();
 });

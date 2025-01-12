@@ -274,3 +274,9 @@
     opacity: 1;
     visibility: visible;
 }
+
+/* 时间显示样式 */
+.time-info {
+    font-family: "Times New Roman", serif;
+    font-weight: bold;
+}
